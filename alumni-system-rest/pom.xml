@@ -22,6 +22,11 @@
             <artifactId>alumni-system-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!--aspectj-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
