@@ -13,6 +13,7 @@ import com.yuqi.alumnisystem.util.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 /**
@@ -45,6 +46,15 @@ public class UserManager {
                 .build();
         ServletUtils.getHttpServletRequest().getSession().setAttribute(GateWayConstants.HEADER_CURRENTUSER, currentUser);
         return userDto;
+    }
+
+    public Boolean logout(){
+        HttpSession session = ServletUtils.getHttpServletRequest().getSession();
+        if (Objects.isNull(session)) {
+            throw new BusinessException(StatusEnum.NEED_OAUTH);
+        }
+        session.invalidate();
+        return true;
     }
 
 }

@@ -28,4 +28,9 @@ public class UserController {
         return new SimpleResponse<>(userManager.detail(schoolId, password));
     }
 
+    @GetMapping("/logout")
+    @ApiOperation("登出")
+    public SimpleResponse<Boolean> logout() {
+        return new SimpleResponse<>(userManager.logout());
+    }
 }
