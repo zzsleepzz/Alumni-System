@@ -2,7 +2,6 @@ package com.yuqi.alumnisystem.controller;
 
 import com.yuqi.alumnisystem.dto.RoleDto;
 import com.yuqi.alumnisystem.dto.SimpleResponse;
-import com.yuqi.alumnisystem.entity.Role;
 import com.yuqi.alumnisystem.manager.RoleManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +14,8 @@ import java.util.List;
  * @author yuexi.guo
  * @date 2022/4/19 17:38
  */
-@RequestMapping("role")
 @RestController
+@RequestMapping("role")
 public class RoleController {
 
     @Autowired

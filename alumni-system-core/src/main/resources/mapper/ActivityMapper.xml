@@ -20,4 +20,20 @@
         content,time,deleted,
         db_created_at,db_updated_at
     </sql>
+
+    <select id="listByUserId" resultType="com.yuqi.alumnisystem.dto.ActivityDto">
+        SELECT
+            `id`,
+            `title`,
+            `content`,
+            `time`
+        FROM
+            `activity`
+        WHERE
+        `deleted` = 0
+        <if test="userId!=null">
+            AND `user_id` = #{userId}
+        </if>
+
+    </select>
 </mapper>

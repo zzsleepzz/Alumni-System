@@ -39,7 +39,7 @@ public class Message implements Serializable {
     /**
      * 是否删除：0-否；1-是
      */
-    private Integer deleted;
+    private Boolean deleted;
 
     /**
      * DB创建时间，业务无关

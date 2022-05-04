@@ -2,8 +2,8 @@ package com.yuqi.alumnisystem.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yuqi.alumnisystem.entity.Role;
-import com.yuqi.alumnisystem.service.RoleService;
 import com.yuqi.alumnisystem.mapper.RoleMapper;
+import com.yuqi.alumnisystem.service.RoleService;
 import org.springframework.stereotype.Service;
 
 /**

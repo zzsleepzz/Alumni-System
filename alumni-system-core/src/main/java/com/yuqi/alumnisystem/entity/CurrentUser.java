@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CurrentUser {
 
+    private Long id;
+
     private String[] permissions;
 
 }

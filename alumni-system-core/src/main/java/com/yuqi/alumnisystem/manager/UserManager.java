@@ -4,17 +4,20 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yuqi.alumnisystem.constants.GateWayConstants;
 import com.yuqi.alumnisystem.dto.UserDto;
 import com.yuqi.alumnisystem.entity.CurrentUser;
+import com.yuqi.alumnisystem.entity.Permission;
 import com.yuqi.alumnisystem.entity.User;
-import com.yuqi.alumnisystem.enums.PermissionEnum;
 import com.yuqi.alumnisystem.enums.StatusEnum;
 import com.yuqi.alumnisystem.exception.BusinessException;
+import com.yuqi.alumnisystem.service.PermissionService;
 import com.yuqi.alumnisystem.service.UserService;
 import com.yuqi.alumnisystem.util.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author yuexi.guo
@@ -26,7 +29,10 @@ public class UserManager {
     @Autowired
     private UserService userService;
 
-    public UserDto detail(Long schoolSystemId, String password) {
+    @Autowired
+    private PermissionService permissionService;
+
+    public UserDto login(Long schoolSystemId, String password) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>(User.builder()
                 .schoolSystemId(schoolSystemId)
                 .password(password)
@@ -41,8 +47,13 @@ public class UserManager {
                 .username(user.getUsername())
                 .phone(user.getPhone())
                 .build();
+        List<Permission> permissions = permissionService.getPermissionsByRoleId(user.getRoleId());
+        String[] permissionsArray = new String[permissions.size()];
+        permissionsArray = permissions.stream().map(x -> x.getPermissionValue().toString()).collect(Collectors.toList()).toArray(permissionsArray);
+        //创建currentUser并存入session
         CurrentUser currentUser = CurrentUser.builder()
-                .permissions(new String[]{PermissionEnum.VIEW_ALL_USER.getIndex().toString()})
+                .id(user.getId())
+                .permissions(permissionsArray)
                 .build();
         ServletUtils.getHttpServletRequest().getSession().setAttribute(GateWayConstants.HEADER_CURRENTUSER, currentUser);
         return userDto;
@@ -56,5 +67,4 @@ public class UserManager {
         session.invalidate();
         return true;
     }
-
 }

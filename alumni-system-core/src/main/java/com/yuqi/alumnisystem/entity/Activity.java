@@ -1,15 +1,15 @@
 package com.yuqi.alumnisystem.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 
@@ -17,11 +17,14 @@ import lombok.NoArgsConstructor;
  */
 @TableName(value ="activity")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Activity implements Serializable {
     /**
      * 主键ID
      */
-    @TableId
+    @TableId()
     private Long id;
 
     /**
@@ -47,7 +50,7 @@ public class Activity implements Serializable {
     /**
      * 是否删除：0-否；1-是
      */
-    private Integer deleted;
+    private Boolean deleted;
 
     /**
      * DB创建时间，业务无关

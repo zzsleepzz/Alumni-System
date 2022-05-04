@@ -24,8 +24,8 @@ public class UserController {
 
     @GetMapping("/login")
     @ApiOperation("登录")
-    public SimpleResponse<UserDto> login(Long schoolId, String password) {
-        return new SimpleResponse<>(userManager.detail(schoolId, password));
+    public SimpleResponse<UserDto> login(Long schoolSystemId, String password) {
+        return new SimpleResponse<>(userManager.login(schoolSystemId, password));
     }
 
     @GetMapping("/logout")

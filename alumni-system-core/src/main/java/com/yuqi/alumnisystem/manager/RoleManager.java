@@ -20,13 +20,18 @@ public class RoleManager {
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    //@Autowired
+    private ModelMapper modelMapper = new ModelMapper();
 
     public List<RoleDto> roles() {
         List<Role> roles = roleService.list();
         List<RoleDto> dto = roles.stream().map(x -> modelMapper.map(x, RoleDto.class)).collect(Collectors.toList());
         return dto;
+    }
+
+    public RoleDto role(Long id) {
+        Role role = roleService.getById(id);
+        return modelMapper.map(role, RoleDto.class);
     }
 
 }

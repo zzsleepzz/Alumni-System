@@ -1,10 +1,13 @@
 package com.yuqi.alumnisystem.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yuqi.alumnisystem.entity.Permission;
-import com.yuqi.alumnisystem.service.PermissionService;
 import com.yuqi.alumnisystem.mapper.PermissionMapper;
+import com.yuqi.alumnisystem.service.PermissionService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author Administrator
@@ -15,6 +18,14 @@ import org.springframework.stereotype.Service;
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission>
     implements PermissionService{
 
+    @Override
+    public List<Permission> getPermissionsByRoleId(Long roleId) {
+        QueryWrapper queryWrapper = new QueryWrapper(Permission.builder()
+                .roleId(roleId)
+                .deleted(false)
+                .build());
+        return list(queryWrapper);
+    }
 }
 
 

@@ -1,22 +1,26 @@
 package com.yuqi.alumnisystem.controller;
 
 import com.yuqi.alumnisystem.annotations.CheckPermissions;
+import com.yuqi.alumnisystem.dto.ActivityDto;
 import com.yuqi.alumnisystem.dto.SimpleResponse;
-import com.yuqi.alumnisystem.entity.Activity;
 import com.yuqi.alumnisystem.enums.PermissionEnum;
 import com.yuqi.alumnisystem.manager.ActivityManager;
+import com.yuqi.alumnisystem.vo.CreateOrUpdateActivityVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
+ * 活动
+ *
  * @author yuexi.guo
  * @date 2022/4/19 17:35
  */
 @RestController
-@RequestMapping("activity")
+@RequestMapping("/activity")
 public class ActivityController {
 
     @Autowired
@@ -24,10 +28,40 @@ public class ActivityController {
 
     @GetMapping("/detail")
     @ApiOperation("活动详情")
-    @CheckPermissions({PermissionEnum.VIEW_ALL_USER})
-    public SimpleResponse<Activity> list(@RequestParam("id") Long id, HttpServletRequest request){
-        System.out.println(request.getSession());
+    public SimpleResponse<ActivityDto> detail(@RequestParam("id") Long id){
         return new SimpleResponse<>(activityManager.detail(id));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("活动列表")
+    public SimpleResponse<List<ActivityDto>> list() {
+        return new SimpleResponse<>(activityManager.list(null));
+    }
+
+    @GetMapping("/listByUserId")
+    @ApiOperation("活动列表(用户个人)")
+    public SimpleResponse<List<ActivityDto>> listByUserId(@RequestParam("userId") Long userId) {
+        return new SimpleResponse<>(activityManager.list(userId));
+    }
+
+    @PostMapping("/createOrUpdate")
+    @ApiOperation("创建或修改活动")
+    public SimpleResponse<Long> createOrUpdate(@Validated @RequestBody CreateOrUpdateActivityVo vo){
+        return new SimpleResponse<>(activityManager.createOrUpdate(vo));
+    }
+
+    @GetMapping("/delete")
+    @ApiOperation("删除个人活动")
+    @CheckPermissions(PermissionEnum.DELETE_OWN_ACTIVITY)
+    public SimpleResponse<Boolean> delete(@RequestParam("id") Long id, @RequestParam("userId") Long userId) {
+        return new SimpleResponse<>(activityManager.delete(id, userId));
+    }
+
+    @GetMapping("/deleteByAdmin")
+    @ApiOperation("删除活动")
+    @CheckPermissions(PermissionEnum.DELETE_ALL_ACTIVITY)
+    public SimpleResponse<Boolean> deleteByAdmin(@RequestParam("id") Long id) {
+        return new SimpleResponse<>(activityManager.delete(id, null));
     }
 
 }

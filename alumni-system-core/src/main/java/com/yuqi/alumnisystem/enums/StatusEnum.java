@@ -29,7 +29,20 @@ public enum StatusEnum implements CommonEnum {
     REST_CLIENT_ERROR(19, "feign请求调用失败"),
     NO_PERMISSION(20, "当前用户没有操作权限"),
     NO_SYSTEM_VERSION_PERMISSION(21, "当前系统版本没有操作权限"),
-    NEED_OAUTH(-9999, "未获取到您的登录信息，请尝试重新登录后再进行访问");
+    NEED_OAUTH(-9999, "未获取到您的登录信息，请尝试重新登录后再进行访问"),
+
+    //1XX-表示用户模块
+
+    //2XX-表示校友模块
+    CREATE_ALUMNI_FAIL(200, "创建校友失败"),
+    UPDATE_ALUMNI_FAIL(210, "修改校友失败"),
+
+    //3XX-表示活动模块
+    CREATE_ACTIVITY_FAIL(300, "创建活动失败"),
+    UPDATE_ACTIVITY_FAIL(310, "修改活动失败"),
+    ACTIVITY_TITLE_REPEAT(320, "活动名称重复失败")
+
+    ;
 
     private final Integer index;
 

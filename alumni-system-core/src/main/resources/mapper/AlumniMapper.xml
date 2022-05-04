@@ -7,6 +7,7 @@
     <resultMap id="BaseResultMap" type="com.yuqi.alumnisystem.entity.Alumni">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="name" column="name" javaType="String"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="url" column="url" jdbcType="VARCHAR"/>
             <result property="deleted" column="deleted" jdbcType="TINYINT"/>
@@ -19,4 +20,15 @@
         url,deleted,db_created_at,
         db_updated_at
     </sql>
+
+    <select id="list" resultType="com.yuqi.alumnisystem.dto.AlumniDto">
+        SELECT
+            `id`,
+            `name`,
+            `description`,
+            `url`
+        FROM
+            `alumni`
+        WHERE `deleted` = 0;
+    </select>
 </mapper>
