@@ -30,6 +30,6 @@
             `phone`
         FROM
             `user`
-        WHERE `deleted` = 0;
+        WHERE `deleted` = 0
     </select>
 </mapper>

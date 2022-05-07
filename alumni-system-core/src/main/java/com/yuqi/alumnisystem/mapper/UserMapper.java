@@ -1,10 +1,10 @@
 package com.yuqi.alumnisystem.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.dto.UserDto;
 import com.yuqi.alumnisystem.entity.User;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author Administrator
@@ -14,7 +14,7 @@ import java.util.List;
 */
 public interface UserMapper extends BaseMapper<User> {
 
-    List<UserDto> list();
+    Page<UserDto> list(@Param("page") Page<UserDto> page);
 }
 
 

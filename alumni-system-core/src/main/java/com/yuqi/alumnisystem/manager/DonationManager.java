@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.manager;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.dto.DonationDto;
 import com.yuqi.alumnisystem.entity.Donation;
 import com.yuqi.alumnisystem.enums.StatusEnum;
@@ -10,7 +11,6 @@ import com.yuqi.alumnisystem.vo.CreateOrUpdateDonationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -37,8 +37,8 @@ public class DonationManager {
         return dto;
     }
 
-    public List<DonationDto> list(Long userId) {
-        return donationService.listByUserId(userId);
+    public Page<DonationDto> list(Integer pageNo, Long userId) {
+        return donationService.listByUserId(pageNo, userId);
     }
 
     public Long createOrUpdate(CreateOrUpdateDonationVo vo) {

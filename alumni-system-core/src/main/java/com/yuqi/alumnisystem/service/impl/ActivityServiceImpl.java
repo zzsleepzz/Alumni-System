@@ -1,14 +1,14 @@
 package com.yuqi.alumnisystem.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yuqi.alumnisystem.constants.PageConstants;
 import com.yuqi.alumnisystem.dto.ActivityDto;
 import com.yuqi.alumnisystem.entity.Activity;
-import com.yuqi.alumnisystem.service.ActivityService;
 import com.yuqi.alumnisystem.mapper.ActivityMapper;
+import com.yuqi.alumnisystem.service.ActivityService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
 * @author Administrator
@@ -20,8 +20,10 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity>
     implements ActivityService{
 
     @Override
-    public List<ActivityDto> listByUserId(Long userId) {
-        return baseMapper.listByUserId(userId);
+    public Page<ActivityDto> listByUserId(Integer pageNo, Long userId) {
+        Page<ActivityDto> page = new Page<>(pageNo, PageConstants.PAGE_SIZE);
+        baseMapper.listByUserId(page, userId);
+        return page;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yuqi.alumnisystem.dto.MessageDto;
 import com.yuqi.alumnisystem.entity.Message;
@@ -15,6 +16,6 @@ public interface MessageService extends IService<Message> {
 
     Message getByIdAndUserId(Long id, Long userId);
 
-    List<MessageDto> listByUserId(Long userId);
+    Page<MessageDto> listByUserId(Integer pageNo, Long userId);
 
 }

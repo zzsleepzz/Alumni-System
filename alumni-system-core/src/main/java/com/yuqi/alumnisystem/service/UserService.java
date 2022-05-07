@@ -1,10 +1,9 @@
 package com.yuqi.alumnisystem.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.yuqi.alumnisystem.dto.UserDto;
 import com.yuqi.alumnisystem.entity.User;
-import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
 * @author Administrator
@@ -15,5 +14,5 @@ public interface UserService extends IService<User> {
 
     User getBySystemIdAndPassword(Long schoolSystemId, String password);
 
-    List<UserDto> listAll();
+    Page<UserDto> listAll(Integer pageNo);
 }

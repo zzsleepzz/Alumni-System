@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.annotations.CheckPermissions;
 import com.yuqi.alumnisystem.dto.ActivityDto;
 import com.yuqi.alumnisystem.dto.SimpleResponse;
@@ -10,8 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 活动
@@ -35,14 +34,14 @@ public class ActivityController {
 
     @GetMapping("/list")
     @ApiOperation("活动列表")
-    public SimpleResponse<List<ActivityDto>> list() {
-        return new SimpleResponse<>(activityManager.list(null));
+    public SimpleResponse<Page<ActivityDto>> list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
+        return new SimpleResponse<>(activityManager.list(pageNo, null));
     }
 
     @GetMapping("/listByUserId")
     @ApiOperation("活动列表(用户个人)")
-    public SimpleResponse<List<ActivityDto>> listByUserId(@RequestParam("userId") Long userId) {
-        return new SimpleResponse<>(activityManager.list(userId));
+    public SimpleResponse<Page<ActivityDto>> listByUserId(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam("userId") Long userId) {
+        return new SimpleResponse<>(activityManager.list(pageNo, userId));
     }
 
     @PostMapping("/createOrUpdate")

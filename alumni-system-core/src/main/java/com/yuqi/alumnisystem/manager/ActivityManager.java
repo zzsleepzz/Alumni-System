@@ -1,6 +1,7 @@
 package com.yuqi.alumnisystem.manager;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.dto.ActivityDto;
 import com.yuqi.alumnisystem.entity.Activity;
 import com.yuqi.alumnisystem.enums.StatusEnum;
@@ -11,7 +12,6 @@ import com.yuqi.alumnisystem.vo.CreateOrUpdateActivityVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -48,8 +48,8 @@ public class ActivityManager {
      * @param userId
      * @return List<ActivityDto>
      */
-    public List<ActivityDto> list(Long userId){
-        return activityService.listByUserId(userId);
+    public Page<ActivityDto> list(Integer pageNo, Long userId){
+        return activityService.listByUserId(pageNo, userId);
     }
 
     /**

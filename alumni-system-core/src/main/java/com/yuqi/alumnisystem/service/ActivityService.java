@@ -1,10 +1,9 @@
 package com.yuqi.alumnisystem.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.yuqi.alumnisystem.dto.ActivityDto;
 import com.yuqi.alumnisystem.entity.Activity;
-import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
 * @author Administrator
@@ -13,7 +12,7 @@ import java.util.List;
 */
 public interface ActivityService extends IService<Activity> {
 
-    List<ActivityDto> listByUserId(Long userId);
+    Page<ActivityDto> listByUserId(Integer pageNo, Long userId);
 
     Activity getByIdAndUserId(Long id, Long userId);
 }

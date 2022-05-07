@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.annotations.CheckPermissions;
 import com.yuqi.alumnisystem.dto.NoticeDto;
 import com.yuqi.alumnisystem.dto.SimpleResponse;
@@ -10,8 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 公告
@@ -34,20 +33,21 @@ public class NoticeController {
 
     @GetMapping("/list")
     @ApiOperation("公告列表")
-    public SimpleResponse<List<NoticeDto>> list(@RequestParam(value = "userId", required = false) Long userId) {
-        return new SimpleResponse<>(noticeManager.list(userId));
+    public SimpleResponse<Page<NoticeDto>> list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "userId", required = false) Long userId) {
+        return new SimpleResponse<>(noticeManager.list(pageNo, userId));
     }
 
 
     @PostMapping("/createOrUpdate")
     @ApiOperation("创建或修改公告")
+    @CheckPermissions(PermissionEnum.CREATE_OR_UPDATE_NOTICE)
     public SimpleResponse<Long> createOrUpdate(@Validated @RequestBody CreateOrUpdateNoticeVo vo){
         return new SimpleResponse<>(noticeManager.createOrUpdate(vo));
     }
 
     @GetMapping("/deleteByAdmin")
     @ApiOperation("删除公告")
-    @CheckPermissions(PermissionEnum.DELETE_ALL_ACTIVITY)
+    @CheckPermissions(PermissionEnum.DELETE_NOTICE)
     public SimpleResponse<Boolean> deleteByAdmin(@RequestParam("id") Long id) {
         return new SimpleResponse<>(noticeManager.delete(id, null));
     }

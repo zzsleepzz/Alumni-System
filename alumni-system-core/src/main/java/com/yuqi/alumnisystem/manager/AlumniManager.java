@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.manager;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.dto.AlumniDto;
 import com.yuqi.alumnisystem.entity.Alumni;
 import com.yuqi.alumnisystem.enums.StatusEnum;
@@ -9,7 +10,6 @@ import com.yuqi.alumnisystem.vo.CreateOrUpdateAlumniVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -41,8 +41,8 @@ public class AlumniManager {
      * 优秀校友信息列表
      * @return List<AlumniDto>
      */
-    public List<AlumniDto> listByUserId(Long userId) {
-        return alumniService.listByUserId(userId);
+    public Page<AlumniDto> listByUserId(Integer pageNo, Long userId) {
+        return alumniService.listByUserId(pageNo, userId);
     }
 
     /**

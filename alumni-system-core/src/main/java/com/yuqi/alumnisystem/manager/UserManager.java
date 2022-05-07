@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.manager;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.constants.GateWayConstants;
 import com.yuqi.alumnisystem.dto.UserDto;
 import com.yuqi.alumnisystem.entity.CurrentUser;
@@ -49,6 +50,10 @@ public class UserManager {
         //创建currentUser并存入session
         CurrentUser currentUser = CurrentUser.builder()
                 .id(user.getId())
+                .roleId(user.getRoleId())
+                .schoolSystemId(user.getSchoolSystemId())
+                .username(user.getUsername())
+                .phone(user.getPhone())
                 .permissions(permissionsArray)
                 .build();
         ServletUtils.getHttpServletRequest().getSession().setAttribute(GateWayConstants.HEADER_CURRENTUSER, currentUser);
@@ -65,8 +70,8 @@ public class UserManager {
     }
 
 
-    public List<UserDto> list() {
-        return userService.listAll();
+    public Page<UserDto> list(Integer pageNo) {
+        return userService.listAll(pageNo);
     }
 
     public UserDto detail(Long userId) {

@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.manager;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.dto.NoticeDto;
 import com.yuqi.alumnisystem.entity.Notice;
 import com.yuqi.alumnisystem.enums.StatusEnum;
@@ -10,7 +11,6 @@ import com.yuqi.alumnisystem.vo.CreateOrUpdateNoticeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -37,8 +37,8 @@ public class NoticeManager {
         return dto;
     }
 
-    public List<NoticeDto> list(Long userId) {
-        return noticeService.listByUserId(userId);
+    public Page<NoticeDto> list(Integer pageNo, Long userId) {
+        return noticeService.listByUserId(pageNo, userId);
     }
 
     public Long createOrUpdate(CreateOrUpdateNoticeVo vo) {

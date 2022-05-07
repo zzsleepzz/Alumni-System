@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.dto.ActivityDto;
 import com.yuqi.alumnisystem.entity.Activity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -15,7 +16,7 @@ import java.util.List;
 */
 public interface ActivityMapper extends BaseMapper<Activity> {
 
-    List<ActivityDto> listByUserId(@Param("userId") Long userId);
+    List<ActivityDto> listByUserId(@Param("page")Page<ActivityDto> page, @Param("userId") Long userId);
 
 }
 

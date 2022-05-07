@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.annotations.CheckPermissions;
 import com.yuqi.alumnisystem.config.CurrentUserConfig;
 import com.yuqi.alumnisystem.dto.SimpleResponse;
@@ -12,9 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author yuexi.guo
@@ -34,8 +34,8 @@ public class UserController {
     @GetMapping("/list")
     @ApiOperation("用户列表")
     @CheckPermissions(PermissionEnum.VIEW_ALL_USER)
-    public SimpleResponse<List<UserDto>> list(){
-        return new SimpleResponse<>(userManager.list());
+    public SimpleResponse<Page<UserDto>> list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo){
+        return new SimpleResponse<>(userManager.list(pageNo));
     }
 
     @GetMapping("/detail")
@@ -45,7 +45,7 @@ public class UserController {
         return new SimpleResponse<>(userManager.detail(userId));
     }
 
-    @GetMapping("info")
+    @GetMapping("/info")
     @ApiOperation("查看个人信息")
     public SimpleResponse<CurrentUser> info(){
         return new SimpleResponse<>(currentUserConfig.getCurrentUser());

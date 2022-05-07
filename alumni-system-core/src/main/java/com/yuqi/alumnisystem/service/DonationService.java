@@ -1,10 +1,9 @@
 package com.yuqi.alumnisystem.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yuqi.alumnisystem.dto.DonationDto;
 import com.yuqi.alumnisystem.entity.Donation;
-
-import java.util.List;
 
 /**
 * @author Administrator
@@ -15,6 +14,6 @@ public interface DonationService extends IService<Donation> {
 
     Donation getByIdAndUserId(Long id, Long userId);
 
-    List<DonationDto> listByUserId(Long userId);
+    Page<DonationDto> listByUserId(Integer pageNo, Long userId);
 
 }

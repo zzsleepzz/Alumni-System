@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.manager;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.dto.MessageDto;
 import com.yuqi.alumnisystem.entity.Message;
 import com.yuqi.alumnisystem.enums.StatusEnum;
@@ -10,7 +11,6 @@ import com.yuqi.alumnisystem.vo.CreateOrUpdateMessageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -36,8 +36,8 @@ public class MessageManager {
         return dto;
     }
 
-    public List<MessageDto> list(Long userId) {
-        return messageService.listByUserId(userId);
+    public Page<MessageDto> list(Integer pageNo, Long userId) {
+        return messageService.listByUserId(pageNo, userId);
     }
 
     public Long createOrUpdate(CreateOrUpdateMessageVo vo) {

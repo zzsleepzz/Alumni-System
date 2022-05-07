@@ -1,10 +1,9 @@
 package com.yuqi.alumnisystem.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yuqi.alumnisystem.dto.NoticeDto;
 import com.yuqi.alumnisystem.entity.Notice;
-
-import java.util.List;
 
 /**
 * @author Administrator
@@ -15,5 +14,5 @@ public interface NoticeService extends IService<Notice> {
 
     Notice getByIdAndUserId(Long id, Long userId);
 
-    List<NoticeDto> listByUserId(Long userId);
+    Page<NoticeDto> listByUserId(Integer pageNo, Long userId);
 }

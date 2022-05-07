@@ -1,14 +1,14 @@
 package com.yuqi.alumnisystem.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yuqi.alumnisystem.constants.PageConstants;
 import com.yuqi.alumnisystem.dto.DonationDto;
 import com.yuqi.alumnisystem.entity.Donation;
 import com.yuqi.alumnisystem.mapper.DonationMapper;
 import com.yuqi.alumnisystem.service.DonationService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
 * @author Administrator
@@ -30,8 +30,10 @@ public class DonationServiceImpl extends ServiceImpl<DonationMapper, Donation>
     }
 
     @Override
-    public List<DonationDto> listByUserId(Long userId) {
-        return baseMapper.list(userId);
+    public Page<DonationDto> listByUserId(Integer pageNo, Long userId) {
+        Page<DonationDto> page = new Page<>(pageNo, PageConstants.PAGE_SIZE);
+        baseMapper.list(page, userId);
+        return page;
     }
 
 }

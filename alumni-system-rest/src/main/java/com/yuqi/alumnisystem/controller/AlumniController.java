@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.annotations.CheckPermissions;
 import com.yuqi.alumnisystem.dto.AlumniDto;
 import com.yuqi.alumnisystem.dto.SimpleResponse;
@@ -10,8 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 优秀校友信息
@@ -35,8 +34,8 @@ public class AlumniController {
 
     @GetMapping("/list")
     @ApiOperation("优秀校友列表")
-    public SimpleResponse<List<AlumniDto>> list(@RequestParam(value = "userId", required = false) Long userId) {
-        return new SimpleResponse<>(alumniManager.listByUserId(userId));
+    public SimpleResponse<Page<AlumniDto>> list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "userId", required = false) Long userId) {
+        return new SimpleResponse<>(alumniManager.listByUserId(pageNo, userId));
     }
 
     @PostMapping("/createOrUpdate")

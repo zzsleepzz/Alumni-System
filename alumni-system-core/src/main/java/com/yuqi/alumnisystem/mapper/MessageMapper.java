@@ -1,8 +1,10 @@
 package com.yuqi.alumnisystem.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.dto.MessageDto;
 import com.yuqi.alumnisystem.entity.Message;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
 */
 public interface MessageMapper extends BaseMapper<Message> {
 
-    List<MessageDto> list(Long userId);
+    List<MessageDto> list(@Param("page") Page<MessageDto> page, @Param("userId") Long userId);
 }
 
 

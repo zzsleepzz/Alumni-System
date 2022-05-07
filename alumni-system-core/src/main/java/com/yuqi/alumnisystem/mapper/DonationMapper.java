@@ -1,8 +1,10 @@
 package com.yuqi.alumnisystem.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.dto.DonationDto;
 import com.yuqi.alumnisystem.entity.Donation;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
 */
 public interface DonationMapper extends BaseMapper<Donation> {
 
-    List<DonationDto> list(Long userId);
+    List<DonationDto> list(@Param("page") Page<DonationDto> page, @Param("userId") Long userId);
 }
 
 

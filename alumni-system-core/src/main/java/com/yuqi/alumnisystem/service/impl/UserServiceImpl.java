@@ -1,14 +1,14 @@
 package com.yuqi.alumnisystem.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yuqi.alumnisystem.constants.PageConstants;
 import com.yuqi.alumnisystem.dto.UserDto;
 import com.yuqi.alumnisystem.entity.User;
 import com.yuqi.alumnisystem.mapper.UserMapper;
 import com.yuqi.alumnisystem.service.UserService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
 * @author Administrator
@@ -30,8 +30,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public List<UserDto> listAll() {
-        return baseMapper.list();
+    public Page<UserDto> listAll(Integer pageNo) {
+        Page<UserDto> page = new Page<>(pageNo, PageConstants.PAGE_SIZE);
+        baseMapper.list(page);
+        return page;
     }
 }
 

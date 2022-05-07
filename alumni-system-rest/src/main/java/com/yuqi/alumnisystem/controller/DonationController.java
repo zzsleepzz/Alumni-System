@@ -1,5 +1,6 @@
 package com.yuqi.alumnisystem.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yuqi.alumnisystem.annotations.CheckPermissions;
 import com.yuqi.alumnisystem.dto.DonationDto;
 import com.yuqi.alumnisystem.dto.SimpleResponse;
@@ -10,8 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 捐款
@@ -27,27 +26,28 @@ public class DonationController {
     private DonationManager donationManager;
 
     @GetMapping("/detail")
-    @ApiOperation("公告详情")
+    @ApiOperation("捐款详情")
     public SimpleResponse<DonationDto> detail(@RequestParam("id") Long id){
         return new SimpleResponse<>(donationManager.detail(id));
     }
 
     @GetMapping("/list")
-    @ApiOperation("公告列表")
-    public SimpleResponse<List<DonationDto>> list(@RequestParam(value = "userId", required = false) Long userId) {
-        return new SimpleResponse<>(donationManager.list(userId));
+    @ApiOperation("捐款列表")
+    public SimpleResponse<Page<DonationDto>> list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "userId", required = false) Long userId) {
+        return new SimpleResponse<>(donationManager.list(pageNo, userId));
     }
 
 
     @PostMapping("/createOrUpdate")
-    @ApiOperation("创建或修改公告")
+    @ApiOperation("创建或修改捐款记录")
+    @CheckPermissions(PermissionEnum.CREATE_OR_UPDATE_DONATION)
     public SimpleResponse<Long> createOrUpdate(@Validated @RequestBody CreateOrUpdateDonationVo vo){
         return new SimpleResponse<>(donationManager.createOrUpdate(vo));
     }
 
     @GetMapping("/deleteByAdmin")
-    @ApiOperation("删除公告")
-    @CheckPermissions(PermissionEnum.DELETE_ALL_ACTIVITY)
+    @ApiOperation("删除捐款记录")
+    @CheckPermissions(PermissionEnum.DELETE_DONATION)
     public SimpleResponse<Boolean> deleteByAdmin(@RequestParam("id") Long id) {
         return new SimpleResponse<>(donationManager.delete(id, null));
     }
