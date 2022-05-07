@@ -30,8 +30,8 @@ public class AlumniServiceImpl extends ServiceImpl<AlumniMapper, Alumni>
     }
 
     @Override
-    public List<AlumniDto> listAll() {
-        return baseMapper.list();
+    public List<AlumniDto> listByUserId(Long userId) {
+        return baseMapper.listByUserId(userId);
     }
 }
 

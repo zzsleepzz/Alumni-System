@@ -1,48 +1,44 @@
-package com.yuqi.alumnisystem.entity;
+package com.yuqi.alumnisystem.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author yuexi.guo
- * @date 2022/4/20 11:49
+ * @date 2022 14:04
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CurrentUser {
-
-    /**
-     * 主键ID
-     */
-    private Long id;
+public class SaveUserVo {
 
     /**
      * 学校系统ID
      */
+    @NotNull
     private Long schoolSystemId;
-
-    /**
-     * 角色ID
-     */
-    private Long roleId;
 
     /**
      * 用户名
      */
+    @NotNull
     private String username;
+
+    /**
+     * 密码
+     */
+    @NotNull
+    private String password;
 
     /**
      * 手机号
      */
+    @NotNull
     private String phone;
-
-    /**
-     * 权限点
-     */
-    private String[] permissions;
 
 }

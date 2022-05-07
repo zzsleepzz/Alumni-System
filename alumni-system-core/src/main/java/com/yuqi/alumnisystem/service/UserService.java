@@ -1,7 +1,10 @@
 package com.yuqi.alumnisystem.service;
 
+import com.yuqi.alumnisystem.dto.UserDto;
 import com.yuqi.alumnisystem.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author Administrator
@@ -10,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UserService extends IService<User> {
 
+    User getBySystemIdAndPassword(Long schoolSystemId, String password);
+
+    List<UserDto> listAll();
 }

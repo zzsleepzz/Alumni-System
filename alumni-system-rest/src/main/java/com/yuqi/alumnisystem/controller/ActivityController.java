@@ -19,6 +19,7 @@ import java.util.List;
  * @author yuexi.guo
  * @date 2022/4/19 17:35
  */
+@Validated
 @RestController
 @RequestMapping("/activity")
 public class ActivityController {

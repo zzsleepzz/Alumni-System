@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2022/4/19 17:38
  */
 @RestController
-@RequestMapping("role")
+@RequestMapping("/role")
 public class RoleController {
 
     @Autowired

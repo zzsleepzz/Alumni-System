@@ -1,16 +1,17 @@
 package com.yuqi.alumnisystem.manager;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yuqi.alumnisystem.constants.GateWayConstants;
 import com.yuqi.alumnisystem.dto.UserDto;
 import com.yuqi.alumnisystem.entity.CurrentUser;
 import com.yuqi.alumnisystem.entity.Permission;
 import com.yuqi.alumnisystem.entity.User;
+import com.yuqi.alumnisystem.enums.RoleEnum;
 import com.yuqi.alumnisystem.enums.StatusEnum;
 import com.yuqi.alumnisystem.exception.BusinessException;
 import com.yuqi.alumnisystem.service.PermissionService;
 import com.yuqi.alumnisystem.service.UserService;
 import com.yuqi.alumnisystem.util.ServletUtils;
+import com.yuqi.alumnisystem.vo.SaveUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,21 +33,16 @@ public class UserManager {
     @Autowired
     private PermissionService permissionService;
 
-    public UserDto login(Long schoolSystemId, String password) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>(User.builder()
-                .schoolSystemId(schoolSystemId)
-                .password(password)
-                .deleted(false)
-                .build());
-        User user = userService.getOne(queryWrapper);
+    public CurrentUser login(Long schoolSystemId, String password) {
+        User user = userService.getBySystemIdAndPassword(schoolSystemId, password);
         if (Objects.isNull(user)) {
             throw new BusinessException(StatusEnum.DATA_NOT_EXIST);
         }
-        UserDto userDto = UserDto.builder()
-                .schoolSystemId(user.getSchoolSystemId())
-                .username(user.getUsername())
-                .phone(user.getPhone())
-                .build();
+//        UserDto userDto = UserDto.builder()
+//                .schoolSystemId(user.getSchoolSystemId())
+//                .username(user.getUsername())
+//                .phone(user.getPhone())
+//                .build();
         List<Permission> permissions = permissionService.getPermissionsByRoleId(user.getRoleId());
         String[] permissionsArray = new String[permissions.size()];
         permissionsArray = permissions.stream().map(x -> x.getPermissionValue().toString()).collect(Collectors.toList()).toArray(permissionsArray);
@@ -56,7 +52,7 @@ public class UserManager {
                 .permissions(permissionsArray)
                 .build();
         ServletUtils.getHttpServletRequest().getSession().setAttribute(GateWayConstants.HEADER_CURRENTUSER, currentUser);
-        return userDto;
+        return currentUser;
     }
 
     public Boolean logout(){
@@ -66,5 +62,35 @@ public class UserManager {
         }
         session.invalidate();
         return true;
+    }
+
+
+    public List<UserDto> list() {
+        return userService.listAll();
+    }
+
+    public UserDto detail(Long userId) {
+        User user = userService.getById(userId);
+        UserDto userDto = UserDto.builder()
+                .schoolSystemId(user.getSchoolSystemId())
+                .username(user.getUsername())
+                .phone(user.getPhone())
+                .build();
+        return userDto;
+    }
+
+    public Long save(SaveUserVo vo) {
+        //todo 调用第三方api判断是否是本校学生
+        User user = User.builder()
+                .schoolSystemId(vo.getSchoolSystemId())
+                .roleId(Long.parseLong(RoleEnum.USER.getIndex().toString()))
+                .username(vo.getUsername())
+                .password(vo.getPassword())
+                .phone(vo.getPhone())
+                .build();
+        if (!userService.save(user)) {
+            throw new BusinessException(StatusEnum.CREATE_USER_FAIL);
+        }
+        return user.getId();
     }
 }

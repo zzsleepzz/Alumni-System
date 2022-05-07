@@ -1,17 +1,24 @@
 package com.yuqi.alumnisystem.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * @author yuexi.guo
- * @date 2022 16:51
+ * @date 2022 23:49
  */
 @Data
-public class CreateOrUpdateActivityVo {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class CreateOrUpdateDonationVo {
 
     /**
      * 主键ID
@@ -27,16 +34,16 @@ public class CreateOrUpdateActivityVo {
     private Long userId;
 
     /**
-     * 标题
+     * 捐款人
      */
     @NotBlank
-    private String title;
+    private String name;
 
     /**
-     * 内容
+     * 捐款数目
      */
     @NotBlank
-    private String content;
+    private BigDecimal value;
 
     /**
      * 时间

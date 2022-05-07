@@ -32,6 +32,7 @@ public enum StatusEnum implements CommonEnum {
     NEED_OAUTH(-9999, "未获取到您的登录信息，请尝试重新登录后再进行访问"),
 
     //1XX-表示用户模块
+    CREATE_USER_FAIL(100, "用户注册失败"),
 
     //2XX-表示校友模块
     CREATE_ALUMNI_FAIL(200, "创建校友失败"),

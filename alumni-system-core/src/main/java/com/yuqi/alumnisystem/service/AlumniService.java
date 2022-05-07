@@ -15,6 +15,6 @@ public interface AlumniService extends IService<Alumni> {
 
     Alumni getByIdAndUserId(Long id, Long userId);
 
-    List<AlumniDto> listAll();
+    List<AlumniDto> listByUserId(Long userId);
 
 }

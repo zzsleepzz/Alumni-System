@@ -58,12 +58,12 @@ public class ActivityManager {
      * @return Long
      */
     public Long createOrUpdate(CreateOrUpdateActivityVo vo) {
-        //若业务需求活动名不可重复需要校验（所有活动名不可重复或该用户创建的活动名不可重复）
+        //todo 若业务需求活动名不可重复需要校验（所有活动名不可重复或该用户创建的活动名不可重复）
         Activity activity = Activity.builder()
                 .title(vo.getTitle())
                 .userId(vo.getUserId())
                 .content(vo.getContent())
-                .time(DateUtils.StringToDate(vo.getDate()))
+                .time(DateUtils.StringToDate(vo.getTime()))
                 .build();
         if(Objects.isNull(vo.getId())){
             //创建活动
@@ -94,14 +94,16 @@ public class ActivityManager {
      * @return Boolean
      */
     public Boolean delete(Long id, Long userId) {
-        QueryWrapper<Activity> queryWrapper = new QueryWrapper<>(Activity.builder()
-                .id(id)
-                .userId(userId)
-                .deleted(false)
-                .build());
-        Activity activity = Activity.builder()
-                .deleted(true)
-                .build();
-        return activityService.update(activity, queryWrapper);
+        Activity existActivity = activityService.getByIdAndUserId(id, null);
+        if (Objects.isNull(existActivity)) {
+            throw new BusinessException(StatusEnum.DATA_NOT_EXIST);
+        }
+//        QueryWrapper<Activity> queryWrapper = new QueryWrapper<>(Activity.builder()
+//                .id(id)
+//                .userId(userId)
+//                .deleted(false)
+//                .build());
+        existActivity.setDeleted(true);
+        return activityService.updateById(existActivity);
     }
 }

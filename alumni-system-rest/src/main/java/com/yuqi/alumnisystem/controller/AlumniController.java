@@ -19,8 +19,9 @@ import java.util.List;
  * @author yuexi.guo
  * @date 2022/4/19 17:36
  */
-@RequestMapping("/alumni")
+@Validated
 @RestController
+@RequestMapping("/alumni")
 public class AlumniController {
 
     @Autowired
@@ -34,8 +35,8 @@ public class AlumniController {
 
     @GetMapping("/list")
     @ApiOperation("优秀校友列表")
-    public SimpleResponse<List<AlumniDto>> list() {
-        return new SimpleResponse<>(alumniManager.list());
+    public SimpleResponse<List<AlumniDto>> list(@RequestParam(value = "userId", required = false) Long userId) {
+        return new SimpleResponse<>(alumniManager.listByUserId(userId));
     }
 
     @PostMapping("/createOrUpdate")

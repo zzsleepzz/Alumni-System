@@ -21,7 +21,7 @@
         db_updated_at
     </sql>
 
-    <select id="list" resultType="com.yuqi.alumnisystem.dto.AlumniDto">
+    <select id="listByUserId" resultType="com.yuqi.alumnisystem.dto.AlumniDto">
         SELECT
             `id`,
             `name`,
@@ -29,6 +29,9 @@
             `url`
         FROM
             `alumni`
-        WHERE `deleted` = 0;
+        WHERE `deleted` = 0
+        <if test="userId!=null">
+            AND `user_id` = #{userId}
+        </if>
     </select>
 </mapper>

@@ -19,4 +19,16 @@
         time,deleted,db_created_at,
         db_updated_at
     </sql>
+    <select id="list" resultType="com.yuqi.alumnisystem.dto.MessageDto">
+        SELECT
+        `id`,
+        `content`,
+        `time`
+        FROM
+        `message`
+        WHERE `deleted` = 0
+        <if test="userId!=null">
+            AND `user_id` = #{userId}
+        </if>
+    </select>
 </mapper>

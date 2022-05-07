@@ -5,6 +5,7 @@ import com.yuqi.alumnisystem.dto.SimpleResponse;
 import com.yuqi.alumnisystem.manager.PermissionManager;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import java.util.List;
  * @author yuexi.guo
  * @date 2022/4/19 17:38
  */
+@Validated
 @RestController
 @RequestMapping("/permission")
 public class PermissionController {

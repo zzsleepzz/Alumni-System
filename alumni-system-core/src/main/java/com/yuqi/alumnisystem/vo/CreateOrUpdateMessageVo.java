@@ -1,6 +1,9 @@
 package com.yuqi.alumnisystem.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -8,10 +11,13 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author yuexi.guo
- * @date 2022 16:51
+ * @date 2022 23:33
  */
 @Data
-public class CreateOrUpdateActivityVo {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class CreateOrUpdateMessageVo {
 
     /**
      * 主键ID
@@ -27,12 +33,6 @@ public class CreateOrUpdateActivityVo {
     private Long userId;
 
     /**
-     * 标题
-     */
-    @NotBlank
-    private String title;
-
-    /**
      * 内容
      */
     @NotBlank
@@ -43,5 +43,6 @@ public class CreateOrUpdateActivityVo {
      */
     @NotNull
     private String time;
+
 
 }

@@ -14,7 +14,8 @@ import java.util.List;
 */
 public interface AlumniMapper extends BaseMapper<Alumni> {
 
-    List<AlumniDto> list();
+    List<AlumniDto> listByUserId(Long userId);
+
 }
 
 

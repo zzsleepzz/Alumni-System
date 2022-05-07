@@ -20,4 +20,17 @@
         content,time,deleted,
         db_created_at,db_updated_at
     </sql>
+    <select id="list" resultType="com.yuqi.alumnisystem.dto.NoticeDto">
+        SELECT
+        `id`,
+        `title`,
+        `content`,
+        `time`
+        FROM
+        `notice`
+        WHERE `deleted` = 0
+        <if test="userId!=null">
+            AND `user_id` = #{userId}
+        </if>
+    </select>
 </mapper>

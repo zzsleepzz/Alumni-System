@@ -1,6 +1,5 @@
 package com.yuqi.alumnisystem.manager;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yuqi.alumnisystem.dto.AlumniDto;
 import com.yuqi.alumnisystem.entity.Alumni;
 import com.yuqi.alumnisystem.enums.StatusEnum;
@@ -42,8 +41,8 @@ public class AlumniManager {
      * 优秀校友信息列表
      * @return List<AlumniDto>
      */
-    public List<AlumniDto> list() {
-        return alumniService.listAll();
+    public List<AlumniDto> listByUserId(Long userId) {
+        return alumniService.listByUserId(userId);
     }
 
     /**
@@ -67,11 +66,11 @@ public class AlumniManager {
             if (Objects.isNull(alumniService.getByIdAndUserId(vo.getId(), vo.getUserId()))){
                 throw new BusinessException(StatusEnum.DATA_NOT_EXIST);
             }
-            QueryWrapper<Alumni> queryWrapper = new QueryWrapper<>(Alumni.builder()
-                    .id(vo.getId())
-                    .deleted(false)
-                    .build());
-            if (!alumniService.update(alumni, queryWrapper)) {
+//            QueryWrapper<Alumni> queryWrapper = new QueryWrapper<>(Alumni.builder()
+//                    .id(vo.getId())
+//                    .deleted(false)
+//                    .build());
+            if (!alumniService.updateById(alumni)) {
                 throw new BusinessException(StatusEnum.UPDATE_ALUMNI_FAIL);
             }
             return vo.getId();
@@ -85,14 +84,16 @@ public class AlumniManager {
      * @return Boolean
      */
     public Boolean delete(Long id, Long userId) {
-        QueryWrapper<Alumni> queryWrapper = new QueryWrapper<>(Alumni.builder()
-                .id(id)
-                .userId(userId)
-                .deleted(false)
-                .build());
-        Alumni alumni = Alumni.builder()
-                .deleted(true)
-                .build();
-        return alumniService.update(alumni, queryWrapper);
+        Alumni existAlumni = alumniService.getByIdAndUserId(id, userId);
+        if (Objects.isNull(existAlumni)) {
+            throw new BusinessException(StatusEnum.DATA_NOT_EXIST);
+        }
+//        QueryWrapper<Alumni> queryWrapper = new QueryWrapper<>(Alumni.builder()
+//                .id(id)
+//                .userId(userId)
+//                .deleted(false)
+//                .build());
+        existAlumni.setDeleted(true);
+        return alumniService.updateById(existAlumni);
     }
 }

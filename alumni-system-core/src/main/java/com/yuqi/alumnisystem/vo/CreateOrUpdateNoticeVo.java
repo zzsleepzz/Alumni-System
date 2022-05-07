@@ -1,17 +1,22 @@
 package com.yuqi.alumnisystem.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
  * @author yuexi.guo
- * @date 2022 16:51
+ * @date 2022 23:27
  */
 @Data
-public class CreateOrUpdateActivityVo {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class CreateOrUpdateNoticeVo {
 
     /**
      * 主键ID
@@ -29,13 +34,13 @@ public class CreateOrUpdateActivityVo {
     /**
      * 标题
      */
-    @NotBlank
+    @NotNull
     private String title;
 
     /**
      * 内容
      */
-    @NotBlank
+    @NotNull
     private String content;
 
     /**

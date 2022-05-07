@@ -21,4 +21,15 @@
         username,password,phone,
         deleted,db_created_at,db_updated_at
     </sql>
+    <select id="list" resultType="com.yuqi.alumnisystem.dto.UserDto">
+        SELECT
+            `id`,
+            `school_system_id`,
+            `role_id`,
+            `username`,
+            `phone`
+        FROM
+            `user`
+        WHERE `deleted` = 0;
+    </select>
 </mapper>

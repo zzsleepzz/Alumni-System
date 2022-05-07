@@ -1,7 +1,10 @@
 package com.yuqi.alumnisystem.mapper;
 
+import com.yuqi.alumnisystem.dto.MessageDto;
 import com.yuqi.alumnisystem.entity.Message;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
 * @author Administrator
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface MessageMapper extends BaseMapper<Message> {
 
+    List<MessageDto> list(Long userId);
 }
 
 
